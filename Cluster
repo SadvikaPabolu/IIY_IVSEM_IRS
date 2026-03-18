@@ -1,0 +1,25 @@
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.cluster import KMeans
+
+# 1. Input sentences
+sentences = [
+    "python programming language",
+    "machine learning models",
+    "cricket player practise"
+]
+
+# 2. Vectorization: Convert text to numerical data (3 columns/features)
+# Corrected parameter: max_features instead of body
+vec = TfidfVectorizer(max_features=3) 
+data = vec.fit_transform(sentences)
+
+# 3. Clustering: 2 clusters
+k = KMeans(n_clusters=2, n_init=10) # Added n_init to avoid warnings
+cluster = k.fit_predict(data)
+
+# 4. Display Results
+print("Cluster Results:\n")
+for i in range(len(sentences)):
+    print(f"Sentence: {sentences[i]}")
+    print(f"Cluster: {cluster[i]}")
+    print()
